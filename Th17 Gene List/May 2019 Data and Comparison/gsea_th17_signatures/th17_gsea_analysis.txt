@@ -1,0 +1,11 @@
+Th17_GSEA_Analysis_Notes:
+
+This script uses a variation of the 'expression_signatures.R' script from the 'stunning-fiesta' repo.
+
+The Th17 signatures:
+- Th17_Standard: is from the original Jack cell signatures ('stunning-fiesta' repo has information)
+- Th17_Enhanced: has more Th17-related genes (information also in 'stunning-fiesta')
+- Th17_CodeSet: is a gene signature of 418 genes highlighted in a publication (10.1038/s41467-017-01571-8) which the supplementary data is downloaded in 'Input' folder.
+
+--- Significant Comparisons ---
+- add

@@ -1,7 +1,7 @@
 ### Lung Adenocarcinoma PanCancer Atlas Mutation Subsetting ###
 source("./Functions/functions.R")
 setwd("./stunning-fiesta_processed/")
-mut <- read.csv("luad_tcga_pancancer_mut.csv", header = T)
+mut <- read.csv("luad_tcga_pancancer_mut_manual_edit.csv", header = T)
 
 # Seperate - subset anything that isn't a "Silent mutation"
 Intermediate <- droplevels(subset(mut, Variant_Classification != "Silent"))
@@ -16,8 +16,37 @@ Intermediate <- droplevels(subset(mut, Variant_Classification != "Silent"))
 setwd("../mut_subset/")
 output <- data.frame(stringsAsFactors = F)
 
+working_test <- Intermediate
+
+for(i in working_test){
+  if (levels(working_test$Hugo_Symbol) == "CPN1") {
+  print("yes")  
+  } else {
+    print("no")
+  }
+}
+
+
+
+int2 <- Intermediate
+int2$EGFR_status <- int2
+
+
 c <- 1
 for(i in levels(Intermediate$Patient.ID)){ 
+  print(paste0("working on: ", i))
+  work <- droplevels(subset(Intermediate, Patient.ID == i))
+  work$Hugo_Symbol <- as.factor(work$Hugo_Symbol)
+  output[c, "Patient.ID"] <- i
+  output[c, "EGFR_Status"] <- ifelse((length(is.na(levels(work$Hugo_Symbol)[levels(work$Hugo_Symbol) %in% "EGFR"]) != 0), "EGFR_mut", "Other_mut"))) c <- c + 1}
+)
+
+
+
+
+
+#c <- 1
+#for(i in levels(Intermediate$Patient.ID)){ 
   print(paste0("working on: ", i))
   work <- droplevels(subset(Intermediate, Patient.ID == i))
   work$Hugo_Symbol <- as.factor(work$Hugo_Symbol)
